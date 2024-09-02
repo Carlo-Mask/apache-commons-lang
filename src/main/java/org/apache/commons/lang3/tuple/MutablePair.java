@@ -18,6 +18,7 @@ package org.apache.commons.lang3.tuple;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.*;
 
 /**
  * A mutable pair consisting of two {@link Object} elements.
@@ -187,4 +188,25 @@ public class MutablePair<L, R> extends Pair<L, R> {
         return result;
     }
 
+    /**
+     * Create a new pair from this pair by mapping the left value.
+     * @param mapper the mapping function for the left value
+     * @return The new pair with the new left value and the current right value
+     * @param <L2> the left type of the new pair
+     */
+    @Override
+    public <L2> MutablePair<L2, R> mapLeft(Function<? super L, ? extends L2> mapper) {
+        return MutablePair.of(mapper.apply(getLeft()), getRight());
+    }
+
+    /**
+     * Create a new pair from this pair by mapping the right value.
+     * @param mapper the mapping function for the right value
+     * @return The new pair with the current left value and the new right value
+     * @param <R2> the right type of the new pair
+     */
+    @Override
+    public <R2> MutablePair<L, R2> mapRight(Function<? super R, ? extends R2> mapper) {
+        return MutablePair.of(getLeft(), mapper.apply(getRight()));
+    }
 }

@@ -19,6 +19,7 @@ package org.apache.commons.lang3.tuple;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.*;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.function.FailableBiConsumer;
@@ -226,6 +227,26 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     @Override
     public R getValue() {
         return getRight();
+    }
+
+    /**
+     * Create a new pair from this pair by mapping the left value.
+     * @param mapper the mapping function for the left value, the behavior if null is returned is left to the concrete implementation of this Pair
+     * @return The new pair with the new left value and the current right value
+     * @param <L2> the left type of the new pair
+     */
+    public <L2> Pair<L2, R> mapLeft(Function<? super L, ? extends L2> mapper) {
+        return Pair.of(mapper.apply(getLeft()), getRight());
+    }
+
+    /**
+     * Create a new pair from this pair by mapping the right value.
+     * @param mapper the mapping function for the right value, the behavior if null is returned is left to the concrete implementation of this Pair
+     * @return The new pair with the current left value and the new right value
+     * @param <R2> the right type of the new pair
+     */
+    public <R2> Pair<L, R2> mapRight(Function<? super R, ? extends R2> mapper) {
+        return Pair.of(getLeft(), mapper.apply(getRight()));
     }
 
     /**
