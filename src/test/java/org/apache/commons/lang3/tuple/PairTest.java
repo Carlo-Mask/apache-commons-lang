@@ -204,4 +204,13 @@ public class PairTest extends AbstractLangTest {
         assertEquals("Test created on " + "04-25-2011", pair.toString("Test created on %2$tm-%2$td-%2$tY"));
     }
 
+    @Test
+    public void testMapLeft() {
+        assertEquals(Pair.of(3, 5).mapLeft(n -> n * 2), Pair.of(6, 5));
+    }
+
+    @Test
+    public void testMapRight() {
+        assertEquals(Pair.of(3, 5).mapRight(n -> n * 2), Pair.of(3, 10));
+    }
 }

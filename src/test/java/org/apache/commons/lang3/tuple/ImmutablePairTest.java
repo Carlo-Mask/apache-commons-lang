@@ -257,4 +257,14 @@ public class ImmutablePairTest extends AbstractLangTest {
             assertEquals(item.getLeft() + "" + item.getRight(), entry.getValue());
         }
     }
+
+    @Test
+    public void testMapLeft() {
+        assertEquals(ImmutablePair.of(3, 5).mapLeft(n -> n * 2), ImmutablePair.of(6, 5));
+    }
+
+    @Test
+    public void testMapRight() {
+        assertEquals(ImmutablePair.of(3, 5).mapRight(n -> n * 2), ImmutablePair.of(3, 10));
+    }
 }

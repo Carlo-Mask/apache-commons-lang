@@ -152,4 +152,14 @@ public class MutablePairTest extends AbstractLangTest {
         assertEquals("(one,null)", MutablePair.of("one", null).toString());
         assertEquals("(one,two)", MutablePair.of("one", "two").toString());
     }
+
+    @Test
+    public void testMapLeft() {
+        assertEquals(MutablePair.of(3, 5).mapLeft(n -> n * 2), MutablePair.of(6, 5));
+    }
+
+    @Test
+    public void testMapRight() {
+        assertEquals(MutablePair.of(3, 5).mapRight(n -> n * 2), MutablePair.of(3, 10));
+    }
 }
